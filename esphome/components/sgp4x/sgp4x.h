@@ -142,8 +142,8 @@ class SGP4xComponent : public PollingComponent, public sensor::Sensor, public se
   ESPPreferenceObject pref_;
   uint32_t seconds_since_last_store_;
   SGP4xBaselines voc_baselines_storage_;
-  // sensor::Sensor *voc_sraw_sensor_{nullptr};
-  // sensor::Sensor *nox_sraw_sensor_{nullptr};
+  sensor::Sensor *voc_sraw_sensor_{nullptr};
+  sensor::Sensor *nox_sraw_sensor_{nullptr};
 };
 }  // namespace sgp4x
 }  // namespace esphome
