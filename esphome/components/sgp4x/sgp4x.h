@@ -71,12 +71,15 @@ class SGP4xComponent : public PollingComponent, public sensor::Sensor, public se
   void set_humidity_sensor(sensor::Sensor *humidity) { humidity_sensor_ = humidity; }
   void set_temperature_sensor(sensor::Sensor *temperature) { temperature_sensor_ = temperature; }
 
+
   void setup() override;
   void update() override;
   void take_sample();
   void dump_config() override;
   float get_setup_priority() const override { return setup_priority::DATA; }
   void set_store_baseline(bool store_baseline) { store_baseline_ = store_baseline; }
+  void set_voc_sraw_sensor(sensor::Sensor *voc_sraw_sensor) { voc_sraw_sensor_ = voc_sraw_sensor; }
+  void set_nox_sraw_sensor(sensor::Sensor *nox_sraw_sensor) { nox_sraw_sensor_ = nox_sraw_sensor; }
   void set_voc_sensor(sensor::Sensor *voc_sensor) { voc_sensor_ = voc_sensor; }
   void set_nox_sensor(sensor::Sensor *nox_sensor) { nox_sensor_ = nox_sensor; }
   void set_voc_algorithm_tuning(uint16_t index_offset, uint16_t learning_time_offset_hours,

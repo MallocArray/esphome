@@ -252,6 +252,12 @@ void SGP4xComponent::update() {
     if (this->nox_index_ != UINT16_MAX)
       this->nox_sensor_->publish_state(this->nox_index_);
   }
+  if (this->voc_sraw_sensor_ != nullptr) {
+    this->voc_sraw_sensor_->publish_state(this->voc_sraw_);
+  }
+  if (this->nox_sraw_sensor_ != nullptr) {
+    this->nox_sraw_sensor_->publish_state(this->nox_sraw_);
+  }
 }
 
 void SGP4xComponent::dump_config() {
@@ -292,6 +298,8 @@ void SGP4xComponent::dump_config() {
   }
   LOG_SENSOR("  ", "VOC", this->voc_sensor_);
   LOG_SENSOR("  ", "NOx", this->nox_sensor_);
+  LOG_SENSOR("  ", "VOC SRAW", this->voc_sraw_sensor_);
+  LOG_SENSOR("  ", "NOx SRAW", this->nox_sraw_sensor_);
 }
 
 }  // namespace sgp4x
