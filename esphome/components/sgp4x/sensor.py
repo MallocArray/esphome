@@ -75,6 +75,17 @@ CONFIG_SCHEMA = cv.All(
                 device_class=DEVICE_CLASS_AQI,
                 state_class=STATE_CLASS_MEASUREMENT,
             ).extend(GAS_SENSOR),
+            # Add raw sensors
+            cv.Optional("voc_sraw"): sensor.sensor_schema(
+                icon=ICON_RADIATOR,
+                accuracy_decimals=0,
+                state_class=STATE_CLASS_MEASUREMENT,
+            ),
+            cv.Optional("nox_sraw"): sensor.sensor_schema(
+                icon=ICON_RADIATOR,
+                accuracy_decimals=0,
+                state_class=STATE_CLASS_MEASUREMENT,
+            ),
             cv.Optional(CONF_STORE_BASELINE, default=True): cv.boolean,
             cv.Optional(CONF_VOC_BASELINE): cv.hex_uint16_t,
             cv.Optional(CONF_COMPENSATION): cv.Schema(
@@ -138,6 +149,14 @@ async def to_code(config):
                     cfg[CONF_GAIN_FACTOR],
                 )
             )
+    # Register raw sensors
+    if "voc_sraw" in config:
+        sens = await sensor.new_sensor(config["voc_sraw"])
+        cg.add(var.set_voc_sraw_sensor(sens))
+    if "nox_sraw" in config:
+        sens = await sensor.new_sensor(config["nox_sraw"])
+        cg.add(var.set_nox_sraw_sensor(sens))
+
     cg.add_library(
         None,
         None,
